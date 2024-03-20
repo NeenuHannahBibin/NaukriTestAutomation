@@ -51,7 +51,7 @@ public class Naukripages
 		driver.findElement(nklogin).click();
 		
 	}
-	//vreifying text of button
+	//vreifying text of button is not working properly
 	public void buttonverify()
 	{
 		WebElement button =driver.findElement(nklogin);
