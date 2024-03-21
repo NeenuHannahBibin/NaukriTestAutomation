@@ -35,10 +35,12 @@ public class Naukritest extends Naukribase
 			System.out.println("password==="+password);
 
 			ob.setvalues(username, password);
-
 			ob.userlogin();
+			ob.upload();
 			
-		
+			
 	  }
+		
+
 	}
 }
