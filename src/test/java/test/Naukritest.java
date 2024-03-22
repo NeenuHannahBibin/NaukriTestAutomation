@@ -19,6 +19,10 @@ public class Naukritest extends Naukribase
 	public void verifylogintest() throws Exception
 	{
 		Naukripages ob=new Naukripages(driver);
+		ob.linkvalidation();
+
+		ob.elementscreenshot();
+
 		ob.homelogin();
 		ob.title();
 		ob.buttonverify();
@@ -37,9 +41,12 @@ public class Naukritest extends Naukribase
 			ob.setvalues(username, password);
 			ob.userlogin();
 			ob.upload();
+			ob.scrennshots();
+			//ob.scrolldown();
 			
 			
 	  }
+
 		
 
 	}

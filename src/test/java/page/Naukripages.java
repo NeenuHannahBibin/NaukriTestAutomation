@@ -4,10 +4,20 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.io.FileHandler;
+
+import sun.net.www.protocol.http.HttpURLConnection;
 
 public class Naukripages 
 {
@@ -66,7 +76,8 @@ public class Naukripages
 		
 		try {
 			fileUpload("D:\\Resume Neenu\\Neenu Avarachan_QA_Resume.pdf");
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -100,8 +111,50 @@ public class Naukripages
 			System.out.println("text not matched");
 		}
 	}
+	// whole page screenshot
 	
+	public void scrennshots() throws IOException
+	{
+	File  screenshot=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+	FileHandler.copy(screenshot, new File("D://naukriscreenshot.png"));
+	}
 	
+	// single element screenshot
+	public void elementscreenshot() throws IOException, InterruptedException
+	{
+		Thread.sleep(3000);
+		WebElement pic=driver.findElement(By.id("register_Layer"));
+		File ScreenShotpic=pic.getScreenshotAs(OutputType.FILE);
+		FileHandler.copy(ScreenShotpic, new File("./naukripic//naukri.png"));
+	}
+	//scroll down to the bottom of page not working
+	public void scrolldown() throws InterruptedException
+	{
+		Thread.sleep(1500);
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+		
+	}
+	// link validation
+	public void linkvalidation() throws IOException, InterruptedException
+
+	{
+		Thread.sleep(3000);
+		String baseurl="https://www.naukri.com/";
+		driver.get(baseurl);
+		URL link=new URL(baseurl);
+		HttpURLConnection connection =(HttpURLConnection)link.openConnection();
+		connection.connect();
+		if(connection.getResponseCode()==200)
+		{
+			System.out.println("valid link------"+baseurl);
+			
+		}
+		else
+		{
+			System.out.println("invalid link----"+baseurl);
+		}
+	}
 	
 }	
 	
