@@ -136,10 +136,9 @@ public class Naukripages
 		
 	}
 	// link validation
-	public void linkvalidation() throws IOException, InterruptedException
-
+	public void linkvalidation() throws IOException
 	{
-		Thread.sleep(3000);
+		//Thread.sleep(3000);
 		String baseurl="https://www.naukri.com/";
 		driver.get(baseurl);
 		URL link=new URL(baseurl);

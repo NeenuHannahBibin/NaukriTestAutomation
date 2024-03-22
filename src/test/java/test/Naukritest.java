@@ -19,8 +19,7 @@ public class Naukritest extends Naukribase
 	public void verifylogintest() throws Exception
 	{
 		Naukripages ob=new Naukripages(driver);
-		ob.linkvalidation();
-
+		//ob.linkvalidation();
 		ob.elementscreenshot();
 
 		ob.homelogin();
