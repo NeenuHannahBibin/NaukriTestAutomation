@@ -6,15 +6,14 @@ import org.testng.annotations.BeforeTest;
 
 public class Naukribase {
 	public WebDriver driver;
+
 	@BeforeTest
-	public void setup()
+		public void url()
 	{
+		 String link="https://www.naukri.com/";
+
 		driver=new ChromeDriver();
-	}
-	@BeforeTest
-	public void url()
-	{
-		driver.get("https://www.naukri.com/");
+		driver.get(link);
 		driver.manage().window().maximize();
 	}
 

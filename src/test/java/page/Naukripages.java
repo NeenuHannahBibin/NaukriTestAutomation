@@ -6,8 +6,9 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -17,7 +18,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.io.FileHandler;
 
-import sun.net.www.protocol.http.HttpURLConnection;
+//import sun.net.www.protocol.http.HttpURLConnection;
 
 public class Naukripages 
 {
@@ -33,8 +34,9 @@ public class Naukripages
 		this.driver=driver;
 	}
 	//home login
-	public void homelogin()
+	public void homelogin() throws Exception
 	{
+		Thread.sleep(3000);
 		driver.findElement(nkhmlogin).click();	
 	}
 	//title verification
@@ -95,9 +97,11 @@ public class Naukripages
 		robot.keyPress(KeyEvent.VK_ENTER);
 		robot.keyRelease(KeyEvent.VK_ENTER);
 	}
-	//vreifying text of button is not working properly
+	//vreifying text of button 
 	public void buttonverify()
 	{
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
+
 		WebElement button =driver.findElement(nklogin);
 		String buttontext=button.getAttribute("value");
 		System.out.println(buttontext);
@@ -127,32 +131,47 @@ public class Naukripages
 		File ScreenShotpic=pic.getScreenshotAs(OutputType.FILE);
 		FileHandler.copy(ScreenShotpic, new File("./naukripic//naukri.png"));
 	}
-	//scroll down to the bottom of page not working
+	//scroll down to the bottom of page 
 	public void scrolldown() throws InterruptedException
 	{
-		Thread.sleep(1500);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
 		JavascriptExecutor js=(JavascriptExecutor)driver;
 		js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 		
 	}
 	// link validation
-	public void linkvalidation() throws IOException
+	public void linkvalidation() throws IOException, Exception
 	{
-		//Thread.sleep(3000);
-		String baseurl="https://www.naukri.com/";
-		driver.get(baseurl);
-		URL link=new URL(baseurl);
-		HttpURLConnection connection =(HttpURLConnection)link.openConnection();
+    Thread.sleep(3000);
+		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
+		String link="https://www.naukri.com/";
+		URL con=new URL(link);
+		HttpURLConnection connection =(HttpURLConnection)con.openConnection();
 		connection.connect();
 		if(connection.getResponseCode()==200)
 		{
-			System.out.println("valid link------"+baseurl);
+			System.out.println("valid link------"+link);
 			
 		}
 		else
 		{
-			System.out.println("invalid link----"+baseurl);
+			System.out.println("invalid link----"+link);
 		}
+	}
+	//logo verify
+	public void logoverify()
+	{
+		WebElement logo=driver.findElement(By.xpath("//*[@id=\"root\"]/div[4]/div[2]/a/img"));
+		boolean display=logo.isDisplayed();
+		if(display)
+		{
+			System.out.println("logo is displayed");
+		}
+		else
+		{
+			System.out.println("logo is not displayed");
+		}
+		
 	}
 	
 }	
