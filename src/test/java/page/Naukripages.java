@@ -28,6 +28,18 @@ public class Naukripages
 	By nkemail=By.xpath("//*[@id=\"root\"]/div[4]/div[2]/div/div/div[2]/div/form/div[2]/input");
 	By nkpwd=By.xpath("//*[@id=\"root\"]/div[4]/div[2]/div/div/div[2]/div/form/div[3]/input");
 	By nklogin=By.xpath("//*[@id=\"root\"]/div[4]/div[2]/div/div/div[2]/div/form/div[6]/button");
+	By nkhmreg=By.id("register_Layer");
+	By nkflname=By.id("name");
+	By nkregemail=By.id("email");
+	By nkregpwd=By.id("password");
+	By nkregmobile=By.id("mobile");
+	By nkimg=By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div/div[1]/form/div[2]/div[4]/div[2]/div[2]");
+	By nkckbox=By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div/div[1]/form/div[2]/div[6]");
+	By Nkreg=By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div/div[1]/form/div[2]/div[7]/button");
+	By currentcity=By.id("currentCity");
+	By currentst=By.id("currentState");
+	By press1=By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div/div[1]/form/div[2]/div[5]/div");
+	By press2=By.xpath("//*[@id=\"sa-dd-scrollcurrentState\"]");
 	
 	public  Naukripages(WebDriver driver)
 	{
@@ -36,9 +48,11 @@ public class Naukripages
 	//home login
 	public void homelogin() throws Exception
 	{
-		Thread.sleep(3000);
+		
 		driver.findElement(nkhmlogin).click();	
+		Thread.sleep(3000);
 	}
+	
 	//title verification
 	public void title()
 	{
@@ -54,9 +68,10 @@ public class Naukripages
 		}
 	}
 	//reading username and password
-	public void setvalues(String user,String password)
+	public void setvalues(String user,String password) throws InterruptedException
 	
 	{
+		
 	//driver.findElement(nkemail).clear();
 	driver.findElement(nkemail).sendKeys(user);
 	//driver.findElement(nkpwd).clear();
@@ -104,7 +119,7 @@ public class Naukripages
 
 		WebElement button =driver.findElement(nklogin);
 		String buttontext=button.getAttribute("value");
-		System.out.println(buttontext);
+		System.out.println("no value in the button"+buttontext);
 
 		if(buttontext.equalsIgnoreCase("Login"))
 		{
@@ -134,12 +149,13 @@ public class Naukripages
 	//scroll down to the bottom of page 
 	public void scrolldown() throws InterruptedException
 	{
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
 		JavascriptExecutor js=(JavascriptExecutor)driver;
-		js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+		js.executeScript("window.scrollBy(0,5000)", " ");
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
+
 		
 	}
-	// link validation
+	// link validations
 	public void linkvalidation() throws IOException, Exception
 	{
     Thread.sleep(3000);
@@ -171,6 +187,41 @@ public class Naukripages
 		{
 			System.out.println("logo is not displayed");
 		}
+		
+	}
+	public void setregvalues(String fullname, String emailid,String password,String mobile,String city,String State) throws InterruptedException
+	{
+	
+	driver.findElement(nkflname).sendKeys(fullname);
+	driver.findElement(nkregemail).sendKeys(emailid);
+	driver.findElement(nkregpwd).sendKeys(password);
+	driver.findElement(nkregmobile).sendKeys(mobile);
+	driver.findElement(nkimg).click();
+	Thread.sleep(3000);
+	driver.findElement(currentcity).sendKeys(city);
+	Thread.sleep(1500);
+	driver.findElement(press1).click();
+
+	driver.findElement(currentst).sendKeys(State);
+	Thread.sleep(3000);
+	driver.findElement(press2).click();
+
+	driver.findElement(nkckbox).click();
+	
+	}
+	public void homeregister()
+	{
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
+		driver.findElement(nkhmreg).click();
+	}
+	public void register()
+	{
+		driver.findElement(Nkreg).click();
+	}
+	public void logout()
+	{
+		driver.findElement(By.xpath("//*[@id=\"ni-gnb-header-section\"]/div[3]/div[2]/div[3]")).click();
+		driver.findElement(By.xpath("//*[@id=\"ni-gnb-header-section\"]/div[3]/div[2]/div[3]/div[2]/div[2]/div/div[3]/div/div[1]/div[4]")).click();
 		
 	}
 	
